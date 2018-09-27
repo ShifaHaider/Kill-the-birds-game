@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kill-the-birds</title>
+</head>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        background-image: url("m2.jpg");
+        /*height: 100%;*/
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        user-select: none;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    .bird {
+        /*position: absolute;*/
+    }
+
+    #img {
+        position: absolute;
+        bottom: 10px;
+        transform: rotate(-45deg);
+        left: 550px;
+        display: inline-block;
+
+    }
+
+    #score {
+        position: absolute;
+        right: 20px;
+    }
+
+</style>
+<body>
+<div id="div"></div>
+<div id="gun">
+    <img src="gun%20(1).png" alt="" width="100" height="100" id="img">
+</div>
+
+<h1 id="score">Score:</h1>
+<script>
+    /*
+     var gun = document.getElementById('gun');
+     gun.addEventListener('mousemove', function (e) {
+     gun.style.left = e.clientX - 12 + 'px';
+     gun.style.right = e.clientY - 12 + 'px';
+     });
+     function myFunction() {
+     var birds = document.getElementById('birds');
+     var a1 = document.getElementById('bird1');
+     var a2 = document.getElementById('bird2');
+     var increase = 50;
+     var screenWidth = window.screen.width;
+     screenWidth = screenWidth - 100;
+     var decrease = null;
+     console.log(birds.children);
+     var increment = setInterval(function () {
+
+     if (increase <= screenWidth) {
+     ++increase;
+     //                birds.style.left = increase + 'px';
+     //                a1.style.left = increase + 'px';
+     //                a2.style.left = increase + 'px';
+     var arr = ['bird1','bird2','bird3','bird4','bird5','bird6'];
+     for(var a = 0; a < arr.length; a++){
+     var id = document.getElementById(arr[a]);
+     id.style.left = increase + 'px';
+     }
+     //                for (var i = 0; i < birds.children.length; i++) {
+     //                    console.log(birds.children[i]);
+     //                    birds.children[i].style.left = increase + 'px';
+     ////                    if(birds.children[i].style.paddingLeft == screenWidth -1 + 'px'){
+     ////                        console.log('h');
+     ////                        birds.removeChild(birds.children[i]);
+     ////                        birds.appendChild(bird);
+     ////                    }
+     //                }
+     }
+     else {
+     increase = 50
+     }
+
+     }, 30);
+
+     }
+     myFunction();
+     function birdsFlying(){
+     var birds = document.getElementById('birds2');
+     var bird = document.createElement('img');
+     bird.setAttribute('src', 'seagull-flying-animated.gif');
+     bird.setAttribute('width', '100px');
+     bird.setAttribute('height', '100px');
+     bird.setAttribute('position', 'absolute');
+     bird.setAttribute('left' , '50px');
+     birds.appendChild(bird);
+     }
+     function adasd(){
+     var a = document.getElementById('bird');
+     a.style.paddingLeft = 0;
+     }
+     */
+
+    function makingBirds() {
+        var birds = document.getElementById('div');
+        var bird = document.createElement('img');
+        bird.setAttribute('src', 'seagull-flying-animated.gif');
+        bird.setAttribute('width', '100px');
+        Object.assign(bird.style,
+                {position: 'absolute', cursor: 'all-scroll'});
+        birds.appendChild(bird);
+        var screenWidth = window.screen.width;
+        var left = -100;
+        var birdsFlying = setInterval(function () {
+            if (left <= screenWidth) {
+                bird.style.left = left++ + 'px';
+            }
+            else {
+                birds.removeChild(bird);
+                clearInterval(birdsFlying);
+            }
+        });
+        bird.addEventListener('click', function (e) {
+            var bottom = 600;
+            console.log([bird]);
+            updateScore();
+            setInterval(function () {
+                if (bottom >= 0) {
+                    clearInterval(birdsFlying);
+                    bird.style.bottom = bottom-- + 'px';
+                }
+                else {
+                    birds.removeChild(bird);
+                }
+            }, 10);
+        })
+    }
+    makingBirds();
+    setInterval(makingBirds, 1000);
+    var score = 0;
+    function updateScore() {
+        var scoreH = document.getElementById('score');
+        score++;
+        score += 9;
+        scoreH.innerHTML = 'Score:' + score;
+        console.log(score);
+    }
+    var gun = document.getElementById('gun');
+</script>
+</body>
+</html>
